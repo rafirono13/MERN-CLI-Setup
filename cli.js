@@ -1,3 +1,5 @@
+// Run this with: `node cli.js` from ANY folder
+// Make sure to run `npm install inquirer chalk` before using
 // cli.js
 // Rafi's Project Generator CLI (Final Upgrade v4.0 - Server Start Script Optimized!)
 // Run this with: `node cli.js` from ANY folder
@@ -69,14 +71,15 @@ const generateClient = async (folder) => {
   const clientProjectPath = path.join(process.cwd(), folder);
 
   log(chalk.gray(`Installing client dependencies in ${clientProjectPath}...`));
+  // UPDATED: Added react-hook-form and date-fns
   await runCommand(
-    `npm install react-router react-icons sweetalert2 @tanstack/react-query axios firebase tailwindcss@latest @tailwindcss/vite@latest daisyui@latest prettier prettier-plugin-tailwindcss`,
+    `npm install react-router react-icons sweetalert2 @tanstack/react-query axios firebase tailwindcss@latest @tailwindcss/vite@latest daisyui@latest prettier prettier-plugin-tailwindcss react-hook-form date-fns`,
     clientProjectPath
   );
 
   const srcPath = path.join(clientProjectPath, "src");
 
-  // FIX 2: Added "Layouts" folder to structure
+  // FIX 2: Added "Layouts" folder to structure (already present)
   const folderStructure = [
     "API",
     "Assets",
@@ -87,13 +90,13 @@ const generateClient = async (folder) => {
     "Components/Private",
     "Firebase",
     "Hooks",
-    "Layouts",
+    "Layouts", // This is already included!
     "Router",
   ];
   folderStructure.forEach((dir) => createFolder(srcPath, dir));
-  log(chalk.green("✅ Custom folder structure created."));
+  log(chalk.green("✅ Custom folder structure created, including 'Layouts'."));
 
-  // FIX 3: Add .prettierrc.json
+  // FIX 3: Add .prettierrc.json (content already matches your request)
   const prettierConfig = `{
   "semi": true,
   "trailingComma": "all",
@@ -116,9 +119,9 @@ const generateClient = async (folder) => {
     path.join(clientProjectPath, ".prettierrc.json"),
     prettierConfig
   );
-  log(chalk.green("✅ .prettierrc.json added."));
+  log(chalk.green("✅ .prettierrc.json added/updated with specified content."));
 
-  // FIX 4: Update package.json scripts
+  // FIX 4: Update package.json scripts (already matches your request)
   log(chalk.gray(`Updating client package.json scripts...`));
   const packageJsonPath = path.join(clientProjectPath, "package.json");
   const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"));
@@ -134,7 +137,9 @@ const generateClient = async (folder) => {
     preview: "vite preview",
   };
   fs.writeFileSync(packageJsonPath, JSON.stringify(packageJson, null, 2));
-  log(chalk.green("✅ Client package.json scripts updated."));
+  log(
+    chalk.green("✅ Client package.json scripts updated to match your request.")
+  );
 
   const viteConfig = `import { defineConfig } from "vite";
 import tailwindcss from "@tailwindcss/vite";
